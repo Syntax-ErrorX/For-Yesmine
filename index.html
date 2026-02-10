@@ -194,6 +194,9 @@
     <div class="login-card">
       <h2>For Yesmine ❤️</h2>
       <input type="password" id="pass-input" placeholder="Passcode" maxlength="4">
+      <small style="color: #ff758f; margin-top: 10px; display: block; font-style: italic;">
+        Hint: Our first date (DDMM)
+      </small>
       <button id="login-btn">Unlock ❤️</button>
     </div>
   </div>
@@ -243,7 +246,6 @@
 
     let yesScale = 1;
 
-    // --- COUNTDOWN LOGIC ---
     function updateTimer() {
       const startDate = new Date(2025, 9, 31); 
       const now = new Date();
@@ -255,7 +257,6 @@
       const secs = Math.floor((diff / 1000) % 60);
 
       document.getElementById('timer').innerText = `${days}d ${hours}h ${mins}m ${secs}s`;
-      // Update the last page number too
       document.getElementById('final-day-count').innerText = days;
     }
     
