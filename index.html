@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Yesmine 💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #ffb3c6, #ff4d6d);
+      overflow: hidden;
+      transition: background 1s ease;
+    }
+
+    /* --- PASSCODE SCREEN --- */
+    #passcode-screen {
+      position: fixed;
+      inset: 0;
+      background: #ff4d6d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .login-card {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      width: 320px;
+    }
+
+    .login-card h2 { color: #ff3366; margin-bottom: 10px; font-size: 1.4rem; }
+    .login-card p { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ffb3c6;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus { border-color: #ff3366; }
+
+    .hint { font-size: 0.8rem; color: #ff758f; margin-top: 10px; display: block; }
+
+    #login-btn {
+      margin-top: 20px;
+      background: #ff3366;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* --- MAIN VALENTINE CARD --- */
+    .floating-hearts span {
+      position: absolute;
+      bottom: -50px;
+      animation: float 10s linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg) scale(1.4); opacity: 0; }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 45px 35px;
+      border-radius: 28px;
+      text-align: center;
+      width: 360px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      display: none; /* Hidden until login */
+    }
+
+    h1 { color: #ff3366; font-size: 1.8rem; margin: 15px 0; }
+    p.msg { color: #555; margin-bottom: 30px; line-height: 1.5; }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      min-height: 150px;
+    }
+
+    button.main-btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes { background: linear-gradient(135deg, #ff3366, #ff6f91); color: white; }
+    #no { background: #eee; color: #777; }
+
+    .btn-return {
+      margin-top: 20px;
+      background: transparent;
+      border: 2px solid #ff3366;
+      color: #ff3366;
+      border-radius: 50px;
+      padding: 8px 20px;
+      cursor: pointer;
+    }
+
+    .heart-icon { font-size: 4rem; animation: pulse 1.5s infinite; display: inline-block; }
+
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+    .hidden { display: none; }
+    .confetti { position: absolute; pointer-events: none; z-index: 1000; }
+  </style>
+</head>
+<body>
+
+  <div id="passcode-screen">
+    <div class="login-card">
+      <h2>Welcome Yesmine ❤️</h2>
+      <p>This page is made only for you.</p>
+      <input type="password" id="pass-input" placeholder="Enter Code" maxlength="4">
+      <small class="hint">Hint: First day (DDMM)</small>
+      <button id="login-btn">Open My Heart</button>
+    </div>
+  </div>
+
+  <div class="floating-hearts"></div>
+
+  <div class="card" id="main-card">
+    <div id="question-screen">
+      <div class="heart-icon">💘</div>
+      <h1>Will you be my Valentine?</h1>
+      <p class="msg">Every line of code I write leads back to you... <br>Will you make me the happiest dev?</p>
+      <div class="buttons">
+        <button id="yes" class="main-btn">Yes, Always! 💖</button>
+        <button id="no" class="main-btn">No 🙃</button>
+      </div>
+    </div>
+
+    <div id="success-screen" class="hidden">
+      <div class="heart-icon">❤️</div>
+      <h1>It's a Date!</h1>
+      <p class="msg">I promise to bug you less than my code bugs me. <br> I love you, Yesmine! 💍💞</p>
+      <button class="btn-return" onclick="resetPage()">← Go Back</button>
+    </div>
+  </div>
+
+  <script>
+    const passInput = document.getElementById('pass-input');
+    const loginBtn = document.getElementById('login-btn');
+    const passScreen = document.getElementById('passcode-screen');
+    const mainCard = document.getElementById('main-card');
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const questionScreen = document.getElementById('question-screen');
+    const successScreen = document.getElementById('success-screen');
+    const heartsContainer = document.querySelector('.floating-hearts');
+    
+    let yesScale = 1;
+
+    // Login Logic
+    loginBtn.addEventListener('click', () => {
+      if (passInput.value === "3110") {
+        passScreen.style.opacity = '0';
+        setTimeout(() => {
+          passScreen.style.visibility = 'hidden';
+          mainCard.style.display = 'block';
+        }, 800);
+      } else {
+        passInput.style.borderColor = "red";
+        alert("Oops! That's not the right date. Try again!");
+      }
+    });
+
+    // Background floating hearts
+    function createFloatingHeart() {
+      const heart = document.createElement('span');
+      heart.textContent = ['💖','💕','💘','❤️'][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      heart.style.fontSize = 15 + Math.random() * 20 + 'px';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createFloatingHeart, 400);
+
+    // Runaway "No" Button
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 160 - 80;
+      const y = Math.random() * 100 - 50;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      yesScale += 0.2;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    });
+
+    // Success Action
+    yesBtn.addEventListener('click', () => {
+      questionScreen.classList.add('hidden');
+      successScreen.classList.remove('hidden');
+      document.body.style.background = 'radial-gradient(circle at center, #ff4d6d, #800f2f)';
+      for (let i = 0; i < 50; i++) createConfetti();
+    });
+
+    function resetPage() {
+      successScreen.classList.add('hidden');
+      questionScreen.classList.remove('hidden');
+      document.body.style.background = 'radial-gradient(circle at top, #ffb3c6, #ff4d6d)';
+      yesScale = 1;
+      yesBtn.style.transform = `scale(1)`;
+      noBtn.style.transform = `translate(0, 0)`;
+    }
+
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.textContent = '❤️';
+      confetti.className = 'confetti';
+      confetti.style.left = '50%';
+      confetti.style.top = '50%';
+      document.body.appendChild(confetti);
+      const destX = (Math.random() - 0.5) * window.innerWidth;
+      const destY = (Math.random() - 0.5) * window.innerHeight;
+      confetti.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+        { transform: `translate(${destX}px, ${destY}px) scale(1.5) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+      ], { duration: 1500, easing: 'ease-out' }).onfinish = () => confetti.remove();
+    }
+  </script>
+</body>
+</html>
