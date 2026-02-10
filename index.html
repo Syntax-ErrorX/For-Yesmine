@@ -6,184 +6,56 @@
   <title>For Yesmine 💖</title>
   <style>
     * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
     body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top, #ffb3c6, #ff4d6d);
-      overflow: hidden;
-      transition: background 1.5s ease;
+      margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
+      background: radial-gradient(circle at top, #ffb3c6, #ff4d6d); overflow: hidden;
     }
 
     /* --- PASSCODE SCREEN --- */
     #passcode-screen {
-      position: fixed;
-      inset: 0;
-      background: #ff4d6d;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
+      position: fixed; inset: 0; background: #ff4d6d; display: flex;
+      justify-content: center; align-items: center; z-index: 2000;
       transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    .login-card {
-      background: white;
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      width: 320px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ffb3c6;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 1.2rem;
-      outline: none;
-    }
-
-    #login-btn {
-      margin-top: 20px;
-      background: #ff3366;
-      color: white;
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    .login-card { background: white; padding: 40px; border-radius: 25px; text-align: center; width: 320px; }
+    input { width: 100%; padding: 12px; border: 2px solid #ffb3c6; border-radius: 12px; text-align: center; font-size: 1.2rem; }
+    #login-btn { margin-top: 20px; background: #ff3366; color: white; width: 100%; padding: 12px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; }
 
     /* --- MAIN CARD --- */
-    .container {
-      perspective: 1000px;
-      width: 360px;
-      height: 520px;
-      display: none;
-    }
-
-    .card {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform-style: preserve-3d;
-    }
-
+    .container { perspective: 1000px; width: 360px; height: 520px; display: none; }
+    .card { width: 100%; height: 100%; position: relative; transition: transform 0.8s; transform-style: preserve-3d; }
     .card.is-flipped { transform: rotateY(180deg); }
-
     .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 30px;
-      border-radius: 28px;
-      text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 28px;
+      text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
-
     .card-back { transform: rotateY(180deg); }
-
-    .couple-photo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 5px solid #ff3366;
-      margin-bottom: 15px;
-      object-fit: cover;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .heart-icon { font-size: 4rem; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    button.main-btn {
-      padding: 15px;
-      border-radius: 50px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #yes { background: #ff3366; color: white; font-size: 1.2rem; }
+    .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 5px solid #ff3366; margin-bottom: 15px; object-fit: cover; }
+    .buttons { display: flex; flex-direction: column; gap: 15px; width: 100%; margin-top: 20px; }
+    button.main-btn { padding: 15px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; }
+    #yes { background: #ff3366; color: white; }
     #no { background: #eee; color: #777; }
 
-    .floating-hearts span {
-      position: absolute;
-      bottom: -50px;
-      animation: floatUp 10s linear infinite;
-    }
-
+    .floating-hearts span { position: absolute; bottom: -50px; animation: floatUp 10s linear infinite; }
     @keyframes floatUp {
       0% { transform: translateY(0) rotate(0deg); opacity: 0; }
       20% { opacity: 0.8; }
       100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
-
-    .floating-text {
-      position: absolute;
-      color: white;
-      font-weight: bold;
-      pointer-events: none;
-      animation: flyUp 2s forwards;
-      z-index: 1000;
-    }
-
-    @keyframes flyUp { to { transform: translateY(-150px); opacity: 0; } }
-
-    #music-control {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      z-index: 3000;
-      background: white;
-      border: 2px solid #ff3366;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      cursor: pointer;
-      display: none;
-    }
   </style>
 </head>
 <body>
 
-  <div id="youtube-player" style="position:absolute; top:-9999px; left:-9999px;">
-    <iframe id="romantic-song" width="100" height="100" 
-      src="https://www.youtube.com/embed/PAVvT98Yv88?enablejsapi=1&autoplay=0" 
-      frameborder="0" allow="autoplay"></iframe>
-  </div>
-
-  <button id="music-control">🔊</button>
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_180873747b.mp3" type="audio/mpeg">
+  </audio>
 
   <div id="passcode-screen">
     <div class="login-card">
       <h2>For Yesmine ❤️</h2>
       <input type="password" id="pass-input" placeholder="Passcode" maxlength="4">
-      <small style="color: #ff758f; margin-top: 10px; display: block;">Hint: First day (DDMM)</small>
+      <small style="color: #ff758f; display: block; margin-top: 10px;">Hint: 3110</small>
       <button id="login-btn">Unlock ❤️</button>
     </div>
   </div>
@@ -193,97 +65,59 @@
   <div class="container" id="main-container">
     <div class="card" id="card-inner">
       <div class="card-face card-front">
-        <div class="heart-icon">💘</div>
-        <h1 style="color: #ff3366;">Will you be my Valentine?</h1>
-        <p>I coded this just for you, Yesmine. You make every day special.</p>
+        <h1>Will you be my Valentine?</h1>
         <div class="buttons">
           <button id="yes" class="main-btn">YES! 💖</button>
           <button id="no" class="main-btn">No 🙃</button>
         </div>
       </div>
-
       <div class="card-face card-back">
-        <img id="display-photo" src="https://i.ibb.co/KjyKMXRd/IMG-5492.jpg" alt="Us" class="couple-photo">
-        <h1 style="color: #ff3366;">IT'S A DATE!</h1>
-        <p>You've made me the happiest person! <br> Can't wait to see you. 💍💞</p>
-        <button onclick="location.reload()" style="background:none; border:none; color:#ff3366; cursor:pointer; text-decoration: underline;">Restart ✨</button>
+        <img src="https://i.ibb.co/KjyKMXRd/IMG-5492.jpg" class="couple-photo">
+        <h1>IT'S A DATE!</h1>
       </div>
     </div>
   </div>
 
   <script>
-    const passInput = document.getElementById('pass-input');
+    const music = document.getElementById('bg-music');
     const loginBtn = document.getElementById('login-btn');
-    const passScreen = document.getElementById('passcode-screen');
-    const container = document.getElementById('main-container');
-    const card = document.getElementById('card-inner');
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const heartsContainer = document.querySelector('.floating-hearts');
-    const musicBtn = document.getElementById('music-control');
-    const ytPlayer = document.getElementById('romantic-song');
-
-    let yesScale = 1;
+    const passInput = document.getElementById('pass-input');
 
     loginBtn.addEventListener('click', () => {
       if (passInput.value === "3110") {
-        // Correctly triggering the YouTube player
-        ytPlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        
-        passScreen.style.transform = "translateY(-100vh)";
+        // FORCE MUSIC TO PLAY
+        music.play().catch(e => console.log("Playback blocked"));
+
+        document.getElementById('passcode-screen').style.transform = "translateY(-100vh)";
         setTimeout(() => { 
-          container.style.display = 'block'; 
-          musicBtn.style.display = 'block';
+          document.getElementById('main-container').style.display = 'block'; 
         }, 500);
       } else {
-        alert("Wrong code! Try the anniversary date.");
+        alert("Wrong code!");
       }
     });
 
-    musicBtn.addEventListener('click', () => {
-        if (musicBtn.textContent === "🔊") {
-            ytPlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            musicBtn.textContent = "🔈";
-        } else {
-            ytPlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            musicBtn.textContent = "🔊";
-        }
+    document.getElementById('yes').addEventListener('click', () => {
+      document.getElementById('card-inner').classList.add('is-flipped');
     });
 
+    // Runaway No Button
+    const noBtn = document.getElementById('no');
     noBtn.addEventListener('mouseover', () => {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 100 - 50;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-      yesScale += 0.2;
-      yesBtn.style.transform = `scale(${yesScale})`;
-    });
-
-    yesBtn.addEventListener('click', (e) => {
-      card.classList.add('is-flipped');
-      document.body.style.background = 'radial-gradient(circle at center, #ff4d6d, #800f2f)';
-      for(let i=0; i<15; i++) {
-        const t = document.createElement('div');
-        t.className = 'floating-text';
-        t.textContent = ['LOVE YOU','MUAH!','YES!','💍','❤️'][Math.floor(Math.random()*5)];
-        t.style.left = e.clientX + (Math.random()*100 - 50) + 'px';
-        t.style.top = e.clientY + 'px';
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 2000);
-      }
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = Math.random() * 80 + '%';
+      noBtn.style.top = Math.random() * 80 + '%';
     });
 
     function createHeart() {
       const h = document.createElement('span');
-      h.textContent = ['❤️','💖','💕','✨','🌸'][Math.floor(Math.random()*5)];
+      h.textContent = '❤️';
       h.style.left = Math.random() * 100 + 'vw';
-      h.style.fontSize = Math.random() * 20 + 15 + 'px';
-      h.style.animationDuration = Math.random() * 3 + 5 + 's';
-      heartsContainer.appendChild(h);
+      h.style.fontSize = Math.random() * 20 + 10 + 'px';
+      document.querySelector('.floating-hearts').appendChild(h);
       setTimeout(() => h.remove(), 8000);
     }
-    setInterval(() => {
-        if(container.style.display === 'block') createHeart();
-    }, 400);
+    setInterval(createHeart, 400);
   </script>
 </body>
 </html>
