@@ -35,8 +35,19 @@ body {
   padding: 30px;
   border-radius: 20px;
   text-align: center;
-  width: 320px;
+  width: 340px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+#login-countdown {
+  font-weight: bold;
+  color: #ff3366;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  background: #fff0f3;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 10px;
 }
 
 input {
@@ -61,25 +72,68 @@ input {
   font-weight: bold;
 }
 
-/* --- THE RING IMAGE (UPDATED TO FACE LEFT) --- */
+#login-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* --- DECORATIONS --- */
 #fixed-ring-img {
   position: fixed;
   bottom: 25px;
   right: 25px;
   width: 160px; 
   display: none;
-  z-index: 2600;
+  z-index: 2700; /* Higher than images */
   pointer-events: none;
-  /* scaleX(-1) flips the image horizontally to face left */
-  transform: scaleX(1) rotate(-15deg);
+  transform: scaleX(1) rotate(-15deg); 
   animation: ringGlow 2s infinite alternate, ringFloat 3s ease-in-out infinite;
   filter: drop-shadow(0 0 18px rgba(255,255,255,0.9));
 }
 
+/* IMAGE POSITIONS */
+.corner-pic {
+  position: fixed;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  display: none;
+  z-index: 2600;
+  clip-path: polygon(50% 15%, 80% 0%, 100% 20%, 100% 50%, 50% 95%, 0% 50%, 0% 20%, 20% 0%);
+}
+
+#top-left-pic {
+  top: 25px;
+  left: 25px;
+  transform: rotate(-5deg);
+  animation: picFloatTop 5s ease-in-out infinite;
+}
+
+#top-right-pic {
+  top: 25px;
+  right: 25px;
+  transform: rotate(5deg);
+  animation: picFloatTop 6s ease-in-out infinite reverse;
+}
+
+#bottom-left-pic {
+  bottom: 25px;
+  left: 25px;
+  transform: rotate(5deg);
+  animation: picFloat 4s ease-in-out infinite;
+}
+
+/* KEYFRAMES */
 @keyframes ringFloat {
-  /* Keeping scaleX(-1) in the animation so it stays facing left while moving */
   from { transform: scaleX(1) rotate(-15deg) translateY(0); }
   to { transform: scaleX(1) rotate(-10deg) translateY(-10px); }
+}
+
+@keyframes picFloat {
+  0%, 100% { transform: rotate(5deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-15px); }
+}
+
+@keyframes picFloatTop {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(10px); }
 }
 
 @keyframes ringGlow {
@@ -87,7 +141,7 @@ input {
   to { filter: drop-shadow(0 0 30px rgba(255,255,255,1)); }
 }
 
-/* --- THE HEART CONTAINER --- */
+/* --- THE MAIN CONTAINER --- */
 .container {
   width: 650px;
   height: 650px;
@@ -111,29 +165,34 @@ input {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background: white;
-  clip-path: path('M325,580 C325,580 600,420 600,220 C600,100 500,40 400,40 C350,40 325,80 325,80 C325,80 300,40 250,40 C150,40 50,100 50,220 C50,420 325,580 325,580 Z');
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
-  padding-top: 100px; 
+  justify-content: center;
   text-align: center;
 }
 
-.card-back { transform: rotateY(180deg); }
+/* PAGE 1: Bubble Shape */
+.card-front {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 80px; 
+  width: 550px;
+  height: 420px;
+  left: 50px; 
+  top: 115px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
 
-/* --- HEART CONTENT --- */
-.floral-border {
-  position: absolute;
-  top: 75px;
-  font-size: 1.3rem;
-  letter-spacing: 6px;
-  opacity: 0.9;
+/* PAGE 2 (BACK): Heart Shape */
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  clip-path: path('M325,580 C325,580 600,420 600,220 C600,100 500,40 400,40 C350,40 325,80 325,80 C325,80 300,40 250,40 C150,40 50,100 50,220 C50,420 325,580 325,580 Z');
 }
 
 .bear-icon {
-  font-size: 3.5rem;
+  font-size: 4rem;
   animation: bounce 2s infinite ease-in-out;
 }
 
@@ -162,34 +221,21 @@ input {
 .buttons {
   display: flex;
   gap: 20px;
-  margin-top: 25px;
+  margin-top: 20px;
   z-index: 100;
 }
 
 button.main-btn {
-  padding: 12px 30px;
+  padding: 12px 35px;
   border-radius: 50px;
   border: none;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-size: 1.1rem;
 }
 
-#yes { background: #ff3366; color: white; transition: 0.3s ease; }
+#yes { background: #ff3366; color: white; }
 #no { background: #e0e0e0; color: #555; transition: 0.2s ease; }
-
-.falling-item {
-  position: absolute;
-  top: -50px;
-  user-select: none;
-  pointer-events: none;
-  animation: fall linear forwards;
-}
-
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
 </style>
 </head>
 
@@ -197,34 +243,31 @@ button.main-btn {
 
 <img id="fixed-ring-img" src="https://i.ibb.co/6JHgQZXP/ring.png" alt="Ring">
 
+<img id="top-left-pic" class="corner-pic" src="https://i.ibb.co/sJqqyYbV/istockphoto-1355803803-612x612-removebg-preview.png" alt="Top Left">
+<img id="top-right-pic" class="corner-pic" src="https://i.ibb.co/27jLYxW8/download-1-removebg-preview.png" alt="Top Right">
+<img id="bottom-left-pic" class="corner-pic" src="https://i.ibb.co/G4q8G3q4/flat-750x-075-f-pad-750x1000-f8f8f8-removebg-preview.png" alt="Bottom Left">
+
 <div id="passcode-screen">
   <div class="login-card">
-    <h2 style="color: #ff3366;">For Yesmine 🧸</h2>
+    <h2 style="color: #ff3366; margin-bottom: 5px;">For Yesmine 🧸</h2>
+    <div id="login-countdown">02:00</div>
     <input type="password" id="pass-input" placeholder="Passcode" maxlength="4">
-    <p style="font-size: 0.8rem; color: #ff3366; font-style: italic; margin-top: 10px;">Hint: Our first date (DDMM)</p>
+    <p style="font-size: 0.8rem; color: #ff3366;">Hint: Our first date (DDMM)</p>
     <button id="login-btn">Unlock ❤️</button>
+    <p id="timeout-msg" style="color: red; display: none; font-weight: bold; margin-top: 10px;">Too slow! Please refresh to try again. 💔</p>
   </div>
 </div>
 
-<div id="falling-container"></div>
-
 <div class="container" id="main-container">
   <div class="card" id="card-inner">
-    
-    <div class="card-face">
-      <div class="floral-border">🌸🌷🌹🌻🌺🌷🌸</div>
+    <div class="card-face card-front">
       <div class="bear-icon">🧸</div>
-      <h2 style="color: #ff3366; margin: 0 0 5px 0; font-size: 1.8rem;">Will you be my Valentine?</h2>
-      
+      <h2 style="color: #ff3366; margin: 10px 0;">Will you be my Valentine?</h2>
       <div class="timer-box">
-        <div style="font-size: 0.8rem; color: #ff3366; font-weight: bold;">Together since Oct 31:</div>
-        <div id="timer" style="font-size: 1.1rem; font-weight: bold; color: #ff3366; font-family: monospace;"></div>
+        <div style="font-size: 0.8rem; color: #ff3366;">Together since Oct 31:</div>
+        <div id="timer" style="font-family: monospace; color: #ff3366; font-weight: bold; font-size: 1.2rem;"></div>
       </div>
-      
-      <p style="font-size: 0.9rem; max-width: 300px; color: #444; line-height: 1.5; margin: 5px 0;">
-        I coded this just for you, Yesmine. You're the best part of my day. 🌸
-      </p>
-      
+      <p style="font-size: 0.95rem; max-width: 320px; color: #444;">I coded this just for you, Yesmine. 🌸</p>
       <div class="buttons">
         <button id="yes" class="main-btn">YES! 💖</button>
         <button id="no" class="main-btn">No 🙃</button>
@@ -232,14 +275,11 @@ button.main-btn {
     </div>
 
     <div class="card-face card-back">
-      <div class="floral-border">🌹🧸🌸🧸🌹🧸🌸</div>
       <img src="https://i.ibb.co/KjyKMXRd/IMG-5492.jpg" class="couple-photo" alt="Us">
-      <h2 style="color: #ff3366; margin: 0; font-size: 1.8rem;">IT'S A DATE! 🌹</h2>
-      <p style="font-weight: bold; color: #ff3366; margin: 10px 0;">Together for <span id="days-count"></span> days. 💍</p>
-      <p>I love you ❤️</p>
-      <button onclick="location.reload()" style="background:none; border:none; color:#ff3366; text-decoration: underline; cursor:pointer; font-size: 0.8rem; margin-top: 15px;">Restart ✨</button>
+      <h2 style="color: #ff3366;">IT'S A DATE! 🌹</h2>
+      <p style="color: #ff3366; font-weight: bold;">Together for <span id="days-count"></span> days. 💍</p>
+      <button onclick="location.reload()" style="background:none; border:none; color:#ff3366; text-decoration: underline; cursor:pointer;">Restart ✨</button>
     </div>
-
   </div>
 </div>
 
@@ -249,10 +289,33 @@ const loginBtn = document.getElementById('login-btn');
 const passScreen = document.getElementById('passcode-screen');
 const container = document.getElementById('main-container');
 const ringImg = document.getElementById('fixed-ring-img');
+const pics = document.querySelectorAll('.corner-pic');
 const card = document.getElementById('card-inner');
 const yesBtn = document.getElementById('yes');
 const noBtn = document.getElementById('no');
-const fallingContainer = document.getElementById('falling-container');
+const loginDisplay = document.getElementById('login-countdown');
+const timeoutMsg = document.getElementById('timeout-msg');
+
+let loginTimeLeft = 120;
+let loginInterval;
+let timerFinished = false;
+
+function startLoginTimer() {
+  loginInterval = setInterval(() => {
+    loginTimeLeft--;
+    let mins = Math.floor(loginTimeLeft / 60);
+    let secs = loginTimeLeft % 60;
+    loginDisplay.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    if (loginTimeLeft <= 0) {
+      clearInterval(loginInterval);
+      timerFinished = true;
+      passInput.disabled = true;
+      loginBtn.disabled = true;
+      timeoutMsg.style.display = "block";
+    }
+  }, 1000);
+}
+startLoginTimer();
 
 function updateTimer() {
   const start = new Date(2025, 9, 31); 
@@ -267,25 +330,15 @@ function updateTimer() {
 }
 setInterval(updateTimer, 1000); updateTimer();
 
-function createFallingItem() {
-  const items = ['🌸', '🌹', '🧸', '🌷', '✨', '💖'];
-  const item = document.createElement('div');
-  item.className = 'falling-item';
-  item.innerText = items[Math.floor(Math.random() * items.length)];
-  item.style.left = Math.random() * 100 + 'vw';
-  item.style.fontSize = Math.random() * 20 + 15 + 'px';
-  item.style.animationDuration = Math.random() * 3 + 3 + 's'; 
-  fallingContainer.appendChild(item);
-  setTimeout(() => { item.remove(); }, 6000);
-}
-
 loginBtn.onclick = () => {
+  if (timerFinished) return;
   if (passInput.value === "3110") {
+    clearInterval(loginInterval);
     passScreen.style.transform = "translateY(-100vh)";
     setTimeout(() => { 
       container.style.display = 'block'; 
       ringImg.style.display = 'block';
-      setInterval(createFallingItem, 250);
+      pics.forEach(pic => pic.style.display = 'block');
     }, 500);
   } else {
     alert("Incorrect passcode! 😭");
@@ -294,8 +347,8 @@ loginBtn.onclick = () => {
 
 let yesScale = 1;
 noBtn.onmouseover = () => {
-  const x = Math.random() * 60 - 30;
-  const y = Math.random() * 60 - 30;
+  const x = Math.random() * 80 - 40;
+  const y = Math.random() * 80 - 40;
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
   yesScale += 0.15;
   yesBtn.style.transform = `scale(${yesScale})`;
@@ -303,7 +356,6 @@ noBtn.onmouseover = () => {
 
 yesBtn.onclick = () => {
   card.classList.add('is-flipped');
-  document.body.style.background = 'radial-gradient(circle at center, #ff4d6d, #800f2f)';
 };
 </script>
 
