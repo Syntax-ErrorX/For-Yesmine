@@ -282,8 +282,10 @@ button.main-btn {
     </div>
   </div>
 </div>
+<audio id="no-sound" src="baby-cry.mp3" preload="auto"></audio>
 
 <script>
+const noSound = document.getElementById('no-sound');
 const passInput = document.getElementById('pass-input');
 const loginBtn = document.getElementById('login-btn');
 const passScreen = document.getElementById('passcode-screen');
@@ -350,9 +352,14 @@ noBtn.onmouseover = () => {
   const x = Math.random() * 80 - 40;
   const y = Math.random() * 80 - 40;
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
   yesScale += 0.15;
   yesBtn.style.transform = `scale(${yesScale})`;
+
+  noSound.currentTime = 0;
+  noSound.play();
 };
+
 
 yesBtn.onclick = () => {
   card.classList.add('is-flipped');
