@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Yesmine 💖</title>
-
 <style>
 * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
@@ -16,9 +15,29 @@
   font-size: 20px;
   animation: fall linear forwards;
 }
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 0; }
+  to { transform: translateY(-110vh); opacity: 1; }
+}
+@keyframes floatUpTwist {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
 
 @keyframes fallHeart {
   to { transform: translateY(110vh) rotate(360deg); }
+}
+@keyframes picFloatCenter {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(12px); }
+}
+@keyframes heartbeat {
+  0% { transform: translateX(-50%) scale(1); }
+  25% { transform: translateX(-50%) scale(1.05); }
+  40% { transform: translateX(-50%) scale(1); }
+  60% { transform: translateX(-50%) scale(1.05); }
+  100% { transform: translateX(-50%) scale(1); }
 }
 
 
@@ -42,6 +61,17 @@
   }
 }
 
+body {
+  background: linear-gradient(-45deg, #ff99bb, #ff3366, #ffb3c6, #ff66aa);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 
 body {
@@ -200,7 +230,7 @@ input {
 .corner-pic {
   position: fixed;
   width: 20vw;
-  max-width: 160px;
+  max-width: 180px;
   height: auto;
   display: none;
   z-index: 2600;
@@ -220,6 +250,8 @@ input {
   transform: rotate(5deg);
   animation: picFloatTop 6s ease-in-out infinite reverse;
 }
+#top-center-pic
+ { top: 10px; left: 50%; transform: translateX(-50%) rotate(0deg); animation: picFloatCenter 5s ease-in-out infinite; }
 
 #bottom-left-pic {
   bottom: 25px;
@@ -268,6 +300,7 @@ h2 {
   padding: 3rem;      /* padding inside card */
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+
 }
 
 
@@ -312,13 +345,23 @@ h2 {
   backdrop-filter: blur(8px);
 }
 .card-back {
-  background: white;
   transform: rotateY(180deg);
+  background: linear-gradient(135deg, #fff0f5, #ffe6f0);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(255, 51, 102, 0.3);
+  border: 2px solid rgba(255,255,255,0.6);
+  position: relative;
+  overflow: hidden;
 }
+
+
 
 .bear-icon {
   font-size: 4rem;
   animation: bounce 2s infinite ease-in-out;
+}
+#top-center-pic {
+    background: transparent !important;
 }
 
 @keyframes bounce {
@@ -347,6 +390,26 @@ h2 {
   border: 5px solid #ff3366;
   object-fit: cover;
   margin-bottom: 15px;
+  transition: opacity 0.5s ease;
+
+}
+#yes:hover {
+  box-shadow: 0 0 25px #ff3366;
+  transform: scale(1.1);
+}
+.love-text {
+  color: #ff3366;
+  font-weight: 500;
+  min-height: 70px;
+  margin: 15px 0;
+  padding: 10px 15px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(255,105,180,0.2);
+}
+.couple-photo {
+  box-shadow: 0 0 25px rgba(255, 51, 102, 0.6);
+  transition: 0.4s ease;
 }
 
 .buttons {
@@ -355,6 +418,20 @@ h2 {
   margin-top: 20px;
   z-index: 100;
 }
+/* Make top-center pic fully transparent and float like a heart emoji */
+#top-center-pic {
+    clip-path: none;           /* remove previous heart shape */
+    border-radius: 0;          /* remove border radius */
+    background: transparent;   /* ensure no background */
+    box-shadow: 0 0 25px rgba(255, 100, 150, 0.6); /* optional glow */
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: heartbeat 3s infinite; /* floating animation */
+    pointer-events: none;       /* let mouse events pass through */
+}
+
 
 button.main-btn {
   padding: 0.8rem 2rem;
@@ -363,25 +440,112 @@ button.main-btn {
   margin: 0.5rem;
   min-width: 120px;
 }
+#top-center-pic {
+  clip-path: none;
+  border-radius: 20px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: heartbeat 3s infinite;
+  box-shadow: 0 0 25px rgba(255, 100, 150, 0.6);
+}
+
 
 #yes { background: #ff3366; color: white; }
 #no { background: #e0e0e0; color: #555; transition: 0.2s ease; }
+/* Firework particles */
+.firework {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: explode 1s ease-out forwards;
+}
+
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+/* Custom heart-shaped restart button */
+#restart-btn {
+  background: linear-gradient(135deg, #ff3366, #ff99bb);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px; /* pill shape */
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#restart-btn::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+#restart-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(255, 51, 102, 0.6);
+}
+
+.card-back::before {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255,105,180,0.2), transparent 70%);
+  top: -100%;
+  left: -100%;
+  animation: glowMove 8s linear infinite;
+}
+
+@keyframes glowMove {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.success-title {
+  font-size: 1.8rem;
+  color: #ff3366;
+  margin-bottom: 10px;
+  animation: popIn 0.8s ease forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 </style>
 </head>
-
 <body>
 
 <img id="fixed-ring-img" src="https://i.ibb.co/6JHgQZXP/ring.png" alt="Ring">
-
-<img id="top-left-pic" class="corner-pic" src="https://i.ibb.co/sJqqyYbV/istockphoto-1355803803-612x612-removebg-preview.png" alt="Top Left">
+<img id="top-center-pic" class="corner-pic" src="https://i.ibb.co/hxYrPR3p/4b1f48b48d510908ccb114136e044157-removebg-preview.png" alt="Top Center">
 <img id="top-right-pic" class="corner-pic" src="https://i.ibb.co/27jLYxW8/download-1-removebg-preview.png" alt="Top Right">
 <img id="bottom-left-pic" class="corner-pic" src="https://i.ibb.co/G4q8G3q4/flat-750x-075-f-pad-750x1000-f8f8f8-removebg-preview.png" alt="Bottom Left">
 <div id="cry-popup">WHY WOULD YOU DO THAT 😭</div>
 <div id="heart-crack">💔</div>
-
+<img id="top-left-pic" class="corner-pic" src="https://i.ibb.co/sJqqyYbV/istockphoto-1355803803-612x612-removebg-preview.png" alt="Top Left">
 <div id="passcode-screen">
   <div class="login-card">
-    <h2 style="color: #ff3366; margin-bottom: 5px;">For Yesmine 🧸</h2>
+    <h2 style="color:#ff3366;">Enter Our Secret 💌</h2>
     <div id="login-countdown">02:00</div>
     <input type="password" id="pass-input" placeholder="Passcode" maxlength="4">
     <p style="font-size: 0.8rem; color: #ff3366;">Hint: Our first date (DDMM)</p>
@@ -389,7 +553,6 @@ button.main-btn {
     <p id="timeout-msg" style="color: red; display: none; font-weight: bold; margin-top: 10px;">Too slow! Please refresh to try again. 💔</p>
   </div>
 </div>
-
 <div class="container" id="main-container">
   <div class="card" id="card-inner">
     <div class="card-face card-front">
@@ -407,10 +570,18 @@ button.main-btn {
     </div>
 
     <div class="card-face card-back">
-      <img src="https://i.ibb.co/KjyKMXRd/IMG-5492.jpg" class="couple-photo" alt="Us">
-      <h2 style="color: #ff3366;">IT'S A DATE! 🌹</h2>
-      <p style="color: #ff3366; font-weight: bold;">Together for <span id="days-count"></span> days. 💍</p>
-      <button onclick="location.reload()" style="background:none; border:none; color:#ff3366; text-decoration: underline; cursor:pointer;">Restart ✨</button>
+      <img id="slideshow" src="https://i.ibb.co/KjyKMXRd/IMG-5492.jpg" class="couple-photo" alt="Us">
+      <h2 style="color: #ff3366;">SHE SAID YESSSSSS!! 🌹</h2>
+      <p id="love-message" class="love-text"></p>
+      <p style="color: #ff3366; font-weight: bold;">
+      Together for <span id="days-count"></span> days. 💍
+      </p>
+      
+<button id="restart-btn"
+style="background:none; border:none; color:#ff3366; text-decoration: underline; cursor:pointer;">
+Restart ✨
+</button>
+
     </div>
   </div>
 </div>
@@ -454,6 +625,60 @@ function startLoginTimer() {
   }, 1000);
 }
 startLoginTimer();
+// 🎆 BIG Firework Explosion
+function createFirework(x, y) {
+  const colors = ["#ff4d6d", "#ff85a1", "#ffd166", "#ff99cc", "#ffffff", "#ff3366"];
+
+  for (let i = 0; i < 80; i++) { // MORE PARTICLES
+    const particle = document.createElement("div");
+    particle.className = "firework";
+
+    const angle = Math.random() * 2 * Math.PI;
+    const radius = Math.random() * 250 + 100; // BIGGER RADIUS
+
+    const moveX = Math.cos(angle) * radius + "px";
+    const moveY = Math.sin(angle) * radius + "px";
+
+    particle.style.setProperty("--x", moveX);
+    particle.style.setProperty("--y", moveY);
+
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+    particle.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    particle.style.width = "10px";
+    particle.style.height = "10px";
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => particle.remove(), 1200);
+  }
+}
+// 🎆 5 Seconds Fireworks Show
+function startFireworksShow() {
+  const duration = 5000; // 5 seconds
+  const interval = 400;  // how often fireworks appear
+  const endTime = Date.now() + duration;
+
+  const fireInterval = setInterval(() => {
+      createFirework(
+      Math.random() * window.innerWidth,
+      Math.random() * window.innerHeight / 1.5
+    );
+
+    if (Date.now() > endTime) {
+      clearInterval(fireInterval);
+    }
+  }, interval);
+}
+document.getElementById("restart-btn").onclick = () => {
+  // Smooth reload the page
+  window.location.reload();
+};
+
+
+
 
 function updateTimer() {
   const start = new Date(2025, 9, 31); 
@@ -471,6 +696,10 @@ setInterval(updateTimer, 1000); updateTimer();
 loginBtn.onclick = () => {
   if (timerFinished) return;
   if (passInput.value === "3110") {
+    const bgMusic = new Audio("romantic.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.3;
+    bgMusic.play();
     clearInterval(loginInterval);
     passScreen.style.transform = "translateY(-100vh)";
     setTimeout(() => { 
@@ -479,7 +708,7 @@ loginBtn.onclick = () => {
       pics.forEach(pic => pic.style.display = 'block');
     }, 500);
   } else {
-    alert("Incorrect passcode! 😭");
+    alert("HOW THE  FUCK YOU DONT KNOW THE PASSCODE 😭");
   }
 };
 
@@ -528,32 +757,72 @@ noBtn.onmouseover = () => {
   }, 800);
 };
 
-
-
-
-
-
-
 yesBtn.onclick = () => {
-  // STOP baby crying immediately
+  // Change background smoothly
+  document.body.style.transition = "1s";
+  document.body.style.background = "radial-gradient(circle, #ff99bb, #ff3366)";
+
+  // 🔥 Start 5-second fireworks show
+  startFireworksShow();
+
+  // 🛑 STOP baby crying immediately
   noSound.pause();
   noSound.currentTime = 0;
 
-  // Play celebration
+  // 🎉 Play celebration sound
   yesSound.currentTime = 0;
   yesSound.play().catch(() => {});
 
+  // ✨ Sparkle burst effect
+  for (let i = 0; i < 25; i++) {
+    setTimeout(() => {
+      const sparkle = document.createElement("div");
+      sparkle.innerText = "✨";
+      sparkle.className = "falling-item";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.fontSize = "30px";
+      sparkle.style.animation = "fall 3s linear forwards";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3000);
+    }, i * 50);
+  }
+
+  // 💕 Generate floating love text
+  setInterval(createLoveText, 4000);
+
+  // 💌 Flip the card
   card.classList.add('is-flipped');
+
+  // 📝 Start typing message + slideshow
+  setTimeout(() => {
+    typeMessage(loveText, document.getElementById("love-message"), 40);
+    startSlideshow();
+  }, 600);
 };
+
 const fallingContainer = document.getElementById('falling-container') || (() => {
   const div = document.createElement('div');
   div.id = 'falling-container';
   document.body.appendChild(div);
   return div;
 })();
+function createLoveText() {
+  const texts = ["I love you 💕", "My forever 💍", "Cutest girl alive 🧸"];
+  const text = document.createElement("div");
+  text.innerText = texts[Math.floor(Math.random() * texts.length)];
+  text.style.position = "fixed";
+  text.style.bottom = "-50px";
+  text.style.left = Math.random() * 80 + "vw";
+  text.style.color = "white";
+  text.style.fontWeight = "bold";
+  text.style.opacity = "0.7";
+  text.style.animation = "floatUp 6s linear forwards";
+  document.body.appendChild(text);
+  setTimeout(() => text.remove(), 6000);
+}
 
 function createFallingItem() {
-  const items = ['🌸', '🌹', '🧸', '🌷', '✨', '💖'];
+  const items = ['🌸', '🌹', '🧸', '🌷', '✨', '💖','🎶','🍫','💌'];
   const item = document.createElement('div');
   item.className = 'falling-item';
   item.innerText = items[Math.floor(Math.random() * items.length)];
@@ -577,12 +846,51 @@ function createFallingItem() {
 setInterval(createFallingItem, 250);
 
 
-// Make items fall continuously
-setInterval(createFallingItem, 250);
 
+/* ---------------- TYPING LOVE MESSAGE ---------------- */
 
+const loveText = "From the first day, I knew you were special. 💕 You are my favorite person, my happiness, my forever. I love you more than words can code. 🧸💖";
+
+function typeMessage(text, element, speed = 40) {
+  let i = 0;
+  element.innerHTML = "";
+
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+
+  typing();
+}
+
+/* ---------------- SLIDESHOW ---------------- */
+
+const photos = [
+  "https://i.ibb.co/fYGFD00C/imageee.jpg",
+  "https://i.ibb.co/6cX4LRH6/imagee.jpg",
+  "https://i.ibb.co/5WnMDvfc/image.jpg"
+];
+
+let slideIndex = 0;
+
+function startSlideshow() {
+  const img = document.getElementById("slideshow");
+
+  setInterval(() => {
+    slideIndex = (slideIndex + 1) % photos.length;
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      img.src = photos[slideIndex];
+      img.style.opacity = 1;
+    }, 300);
+
+  }, 3000);
+}
 
 </script>
-
 </body>
 </html>
